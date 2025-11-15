@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校園接駁車預約系統</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 登入頁面 -->
+    <div id="loginPage" class="login-page">
+        <div class="login-form">
+            <h2>登入系統</h2>
+            <input type="text" id="username" placeholder="學號">
+            <input type="password" id="password" placeholder="密碼">
+            <button id="loginBtn" class="btn-primary">登入</button>
+            <p class="login-hint">提示：任意學號和密碼即可登入</p>
+        </div>
+    </div>
+
+    <div id="mainPage" class="container" style="display: none;">
+        <header>
+            <div class="header-content">
+                <h1>校園接駁車預約系統</h1>
+                <div class="user-info">
+                    <span id="userDisplay"></span>
+                    <button id="logoutBtn" class="btn-logout">登出</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- 查詢班次區域 -->
+            <section class="search-section">
+                <h2>查詢班次</h2>
+                <div class="quick-actions">
+                    <button class="quick-btn" onclick="setToday()">今天</button>
+                    <button class="quick-btn" onclick="setTomorrow()">明天</button>
+                    <button class="quick-btn" onclick="setRoute('中央大學-桃園高鐵站')">中央-高鐵</button>
+                </div>
+                <div class="search-form">
+                    <div class="form-group">
+                        <label for="date">日期：</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="route">路線：</label>
+                        <select id="route" required>
+                            <option value="">請選擇路線</option>
+                            <option value="中央大學-桃園高鐵站">中央大學-桃園高鐵站</option>
+                            <option value="桃園高鐵站-中央大學">桃園高鐵站-中央大學</option>
+                            <option value="中央大學-中壢火車站">中央大學-中壢火車站</option>
+                            <option value="中壢火車站-中央大學">中壢火車站-中央大學</option>
+                        </select>
+                    </div>
+                    <button id="searchBtn" class="btn-primary">查詢</button>
+                </div>
+            </section>
+
+            <!-- 班次列表區域 -->
+            <section class="schedule-section">
+                <h2>班次列表</h2>
+                <div id="scheduleList" class="schedule-list"></div>
+            </section>
+
+            <!-- 我的預約區域 -->
+            <section class="my-bookings-section">
+                <h2>我的預約 <span id="bookingCount" class="booking-count">0</span></h2>
+                <div id="myBookings" class="my-bookings"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 座位選擇彈窗 -->
+    <div id="seatModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">選擇座位</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="seat-map">
+                <div class="frame">
+                    <div class="front-door">前門 ▷</div>
+                    <div class="seat-grid" id="seatGrid">
+                        <div class="col" id="colLeft"></div>
+                        <div class="aisle">
+                            <div class="exit" title="安全門">EXIT</div>
+                        </div>
+                        <div class="col" id="colRight"></div>
+                    </div>
+                    <div class="legend">
+                        <div class="item"><span class="sw av"></span> 可選</div>
+                        <div class="item"><span class="sw sel"></span> 已選</div>
+                        <div class="item"><span class="sw res"></span> 不可用</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmBooking" class="btn-primary" disabled>確認預約</button>
+                <button id="cancelBooking" class="btn-secondary">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
