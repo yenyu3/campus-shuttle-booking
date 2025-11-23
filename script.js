@@ -13,9 +13,17 @@ const mainPage = document.getElementById('mainPage');
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 const loginBtn = document.getElementById('loginBtn');
+const registerBtn = document.getElementById('registerBtn');
+const toRegister = document.getElementById('toRegister');
+const toLogin = document.getElementById('toLogin');
+const loginFormCard = document.getElementById('loginFormCard');
+const registerFormCard = document.getElementById('registerFormCard');
+const systemInfoCard = document.getElementById('systemInfoCard');
+const registerInfoCard = document.getElementById('registerInfoCard');
 const logoutBtn = document.getElementById('logoutBtn');
 const userDisplay = document.getElementById('userDisplay');
 const dateInput = document.getElementById('date');
+const timeInput = document.getElementById('time');
 const routeSelect = document.getElementById('route');
 const searchBtn = document.getElementById('searchBtn');
 const scheduleList = document.getElementById('scheduleList');
@@ -29,6 +37,9 @@ const closeModal = document.querySelector('.close');
 // 初始化事件監聽
 function initializeEventListeners() {
     if (loginBtn) loginBtn.addEventListener('click', login);
+    if (registerBtn) registerBtn.addEventListener('click', register);
+    if (toRegister) toRegister.addEventListener('click', showRegisterMode);
+    if (toLogin) toLogin.addEventListener('click', showLoginMode);
     if (logoutBtn) logoutBtn.addEventListener('click', logout);
     if (closeModal) closeModal.addEventListener('click', closeSeatModal);
     if (cancelBooking) cancelBooking.addEventListener('click', closeSeatModal);
@@ -65,8 +76,9 @@ async function login() {
             myBookings = []; // 清空前一個用戶的預約記錄
             userDisplay.textContent = `歡迎，${username}`;
             
-            // 重置日期和路線預設值
+            // 重置日期、時間和路線預設值
             if (dateInput) dateInput.valueAsDate = new Date();
+            if (timeInput) timeInput.value = '';
             if (routeSelect) routeSelect.value = '';
             
             loginPage.style.display = 'none';
@@ -89,18 +101,87 @@ function logout() {
     passwordInput.value = '';
     scheduleList.innerHTML = ''; // 清空班次列表
     
-    // 重置日期和路線
+    // 重置日期、時間和路線
     if (dateInput) dateInput.value = '';
+    if (timeInput) timeInput.value = '';
     if (routeSelect) routeSelect.value = '';
+    
+    // 重置為登入模式
+    showLoginMode();
     
     loginPage.style.display = 'flex';
     mainPage.style.display = 'none';
     displayMyBookings(); // 更新顯示
 }
 
+// 顯示登入模式（左側：登入表單，右側：系統說明）
+function showLoginMode() {
+    // 左側卡片
+    if (loginFormCard) {
+        loginFormCard.style.display = 'block';
+        loginFormCard.classList.add('fade-in');
+    }
+    if (registerInfoCard) registerInfoCard.style.display = 'none';
+    
+    // 右側卡片
+    if (systemInfoCard) {
+        systemInfoCard.style.display = 'block';
+        systemInfoCard.classList.add('fade-in');
+    }
+    if (registerFormCard) registerFormCard.style.display = 'none';
+}
+
+// 顯示註冊模式（左側：系統說明，右側：註冊表單）
+function showRegisterMode() {
+    // 左側卡片
+    if (loginFormCard) loginFormCard.style.display = 'none';
+    if (registerInfoCard) {
+        registerInfoCard.style.display = 'block';
+        registerInfoCard.classList.add('fade-in');
+    }
+    
+    // 右側卡片
+    if (systemInfoCard) systemInfoCard.style.display = 'none';
+    if (registerFormCard) {
+        registerFormCard.style.display = 'block';
+        registerFormCard.classList.add('fade-in');
+    }
+}
+
+// 註冊功能
+function register() {
+    const regUsername = document.getElementById('regUsername').value.trim();
+    const regName = document.getElementById('regName').value.trim();
+    const regEmail = document.getElementById('regEmail').value.trim();
+    const regPassword = document.getElementById('regPassword').value.trim();
+    const regConfirmPassword = document.getElementById('regConfirmPassword').value.trim();
+    
+    if (!regUsername || !regName || !regEmail || !regPassword || !regConfirmPassword) {
+        alert('請填寫所有欄位');
+        return;
+    }
+    
+    if (regPassword !== regConfirmPassword) {
+        alert('密碼與確認密碼不一致');
+        return;
+    }
+    
+    alert('註冊成功！\n\n請使用您的學號和密碼登入系統。');
+    
+    // 清空表單並切換到登入
+    document.getElementById('regUsername').value = '';
+    document.getElementById('regName').value = '';
+    document.getElementById('regEmail').value = '';
+    document.getElementById('regPassword').value = '';
+    document.getElementById('regConfirmPassword').value = '';
+    
+    showLoginMode();
+}
+
 // 查詢班次功能
 async function searchSchedule() {
     const selectedDate = dateInput.value;
+    const selectedTime = timeInput.value;
     const selectedRoute = routeSelect.value;
     
     if (!selectedDate) {
@@ -124,7 +205,15 @@ async function searchSchedule() {
             }
         }
         
-        const schedules = await response.json();
+        let schedules = await response.json();
+        
+        // 時間篩選：只顯示選擇時間之後的班次
+        if (selectedTime) {
+            schedules = schedules.filter(schedule => {
+                return schedule.departureTime >= selectedTime;
+            });
+        }
+        
         displaySchedule(schedules, selectedDate);
     } catch (error) {
         console.error('查詢班次錯誤:', error);
@@ -134,8 +223,11 @@ async function searchSchedule() {
 
 // 顯示班次列表
 function displaySchedule(schedules, date) {
+    // 儲存班次資料供座位選擇使用
+    window.currentSchedules = schedules;
+    
     if (schedules.length === 0) {
-        scheduleList.innerHTML = '<div class="empty-message">此日期暫無班次</div>';
+        scheduleList.innerHTML = '<div class="empty-message">此日期時間暫無班次</div>';
         return;
     }
     
@@ -164,12 +256,14 @@ function openSeatSelection(scheduleId, route, time, date) {
     currentBookingInfo = { scheduleId, route, time, date };
     modalTitle.textContent = `${route} - ${time}`;
     
-    generateSeatMap();
+    // 找到對應的班次資料
+    const schedule = window.currentSchedules?.find(s => s.id == scheduleId);
+    generateSeatMap(schedule);
     seatModal.style.display = 'block';
 }
 
 // 生成座位圖
-function generateSeatMap() {
+function generateSeatMap(schedule) {
     const colLeft = document.getElementById('colLeft');
     const colRight = document.getElementById('colRight');
     colLeft.innerHTML = '';
@@ -179,13 +273,20 @@ function generateSeatMap() {
     
     const leftOrder = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
     const rightOrder = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
+    const occupiedSeats = schedule ? schedule.occupiedSeats || [] : [];
     
     function createSeat(num) {
         const seat = document.createElement('div');
-        seat.className = 'seat available';
         seat.dataset.num = num;
         seat.innerHTML = `<div class="seat-number">${num}</div>`;
-        seat.addEventListener('click', () => selectSeat(num, seat));
+        
+        if (occupiedSeats.includes(num.toString())) {
+            seat.className = 'seat occupied';
+        } else {
+            seat.className = 'seat available';
+            seat.addEventListener('click', () => selectSeat(num, seat));
+        }
+        
         return seat;
     }
     

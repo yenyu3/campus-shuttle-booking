@@ -5,10 +5,11 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
+    font-family: 'Microsoft JhengHei', Arial, sans-serif;
+    background: linear-gradient(135deg, #E4DFD8 0%, #9BB7D4 100%);
+    color: #3A4E6B;
     line-height: 1.6;
+    min-height: 100vh;
 }
 
 .container {
@@ -23,44 +24,182 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2  100%);
+    background: linear-gradient(135deg, #9BB7D4 0%, #E4DFD8 100%);
+    padding: 20px;
 }
 
-.login-form {
-    background: white;
+.auth-container {
+    display: flex;
+    max-width: 900px;
+    width: 100%;
+    height: 500px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(58, 78, 107, 0.2);
+}
+
+.auth-card {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    width: 100%;
-    max-width: 400px;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
-.login-form h2 {
+.left-card {
+    background: #E4DFD8;
+    border-right: 1px solid #9BB7D4;
+}
+
+.right-card {
+    background: #9BB7D4;
+}
+
+/* 卡片內容 */
+.card-content {
+    width: 100%;
+    max-width: 320px;
     text-align: center;
+}
+
+.card-content h2 {
+    font-size: 24px;
     margin-bottom: 30px;
-    color: #2c3e50;
+    font-weight: 600;
+    color: #3A4E6B;
 }
 
-.login-form input {
+/* 表單欄位 */
+.form-fields {
+    margin-bottom: 25px;
+}
+
+.form-fields input {
     width: 100%;
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-.login-form button {
-    width: 100%;
-    padding: 15px;
-    font-size: 16px;
-}
-
-.login-hint {
-    text-align: center;
-    color: #7f8c8d;
+    margin-bottom: 15px;
+    padding: 14px 16px;
+    border: 2px solid #E4DFD8;
+    border-radius: 10px;
     font-size: 14px;
-    margin-top: 15px;
+    background: white;
+    color: #3A4E6B;
+    transition: all 0.3s ease;
+}
+
+.form-fields input:focus {
+    outline: none;
+    border-color: #9BB7D4;
+    box-shadow: 0 0 0 3px rgba(155, 183, 212, 0.1);
+}
+
+.form-fields input::placeholder {
+    color: #9BB7D4;
+}
+
+.form-fields button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #3A4E6B 0%, #9BB7D4 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-fields button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(58, 78, 107, 0.3);
+}
+
+/* 系統功能介紹 */
+.system-features {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 15px;
+    color: #3A4E6B;
+}
+
+.checkmark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: #9BB7D4;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 12px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+/* 切換連結 */
+.switch-text {
+    text-align: center;
+    font-size: 14px;
+    color: #3A4E6B;
+    margin-top: 20px;
+}
+
+.switch-link {
+    color: #9BB7D4;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 600;
+    border-bottom: 1px solid #9BB7D4;
+    transition: all 0.3s ease;
+}
+
+.switch-link:hover {
+    color: #3A4E6B;
+    border-bottom-color: #3A4E6B;
+}
+
+/* 淡入動畫 */
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .auth-container {
+        flex-direction: column;
+        max-width: 400px;
+        height: auto;
+    }
+    
+    .auth-card {
+        padding: 30px 20px;
+    }
+    
+    .left-card {
+        border-right: none;
+        border-bottom: 1px solid #9BB7D4;
+    }
 }
 
 header {
@@ -81,35 +220,42 @@ header {
 }
 
 .btn-logout {
-    background-color: #e74c3c;
+    background-color: #F56565;
     color: white;
     border: none;
     padding: 8px 16px;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 13px;
+    transition: all 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: #E53E3E;
+    transform: translateY(-1px);
 }
 
 h1 {
-    color: #2c3e50;
+    color: #3A4E6B;
     font-size: 2.2em;
     margin-bottom: 10px;
 }
 
 h2 {
-    color: #34495e;
+    color: #3A4E6B;
     font-size: 1.4em;
     margin-bottom: 15px;
-    border-left: 4px solid #3498db;
+    border-left: 4px solid #9BB7D4;
     padding-left: 10px;
 }
 
 .search-section, .schedule-section, .my-bookings-section {
-    background: white;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
     padding: 25px;
     margin-bottom: 25px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 20px rgba(58, 78, 107, 0.1);
+    border: 1px solid rgba(155, 183, 212, 0.2);
 }
 
 .search-form {
@@ -126,26 +272,32 @@ h2 {
 }
 
 label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #555;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #3A4E6B;
+    font-size: 15px;
 }
 
 input, select {
-    padding: 10px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
+    padding: 12px 16px;
+    border: 2px solid #E4DFD8;
+    border-radius: 12px;
     font-size: 14px;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 8px rgba(58, 78, 107, 0.08);
+    font-family: 'Microsoft JhengHei', Arial, sans-serif;
 }
 
 input:focus, select:focus {
     outline: none;
-    border-color: #3498db;
+    border-color: #3A4E6B;
+    box-shadow: 0 0 0 3px rgba(58, 78, 107, 0.2), 0 4px 12px rgba(58, 78, 107, 0.12);
+    transform: translateY(-1px);
 }
 
 .btn-primary {
-    background-color: #3498db;
+    background: linear-gradient(135deg, #3A4E6B 0%, #9BB7D4 100%);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -153,31 +305,36 @@ input:focus, select:focus {
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
 }
 
 .btn-primary:hover {
-    background-color: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(58, 78, 107, 0.3);
 }
 
 .btn-secondary {
-    background-color: #27ae60;
+    background: linear-gradient(135deg, #9BB7D4 0%, #3A4E6B 100%);
     color: white;
     border: none;
     padding: 8px 16px;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 13px;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
 }
 
 .btn-secondary:hover {
-    background-color: #229954;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(58, 78, 107, 0.3);
 }
 
 .btn-secondary:disabled {
-    background-color: #95a5a6;
+    background: #E4DFD8;
+    color: #9BB7D4;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 .schedule-list, .my-bookings {
@@ -186,9 +343,9 @@ input:focus, select:focus {
 }
 
 .schedule-card, .booking-card {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #E4DFD8;
+    border-radius: 12px;
     padding: 20px;
     display: flex;
     justify-content: space-between;
@@ -198,7 +355,8 @@ input:focus, select:focus {
 
 .schedule-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 25px rgba(58, 78, 107, 0.15);
+    border-color: #9BB7D4;
 }
 
 .schedule-info {
@@ -208,27 +366,28 @@ input:focus, select:focus {
 .time {
     font-size: 1.2em;
     font-weight: bold;
-    color: #2c3e50;
+    color: #2D3748;
     margin-bottom: 5px;
 }
 
 .route {
-    color: #7f8c8d;
+    color: #4A5568;
     margin-bottom: 5px;
+    font-weight: 500;
 }
 
 .seats {
-    color: #27ae60;
+    color: #2D3748;
     font-weight: bold;
 }
 
 .seats.low {
-    color: #e74c3c;
+    color: #F56565;
 }
 
 .booking-card {
-    background: #e8f5e8;
-    border-color: #27ae60;
+    background: rgba(228, 223, 216, 0.3);
+    border-color: #9BB7D4;
     position: relative;
 }
 
@@ -243,7 +402,7 @@ input:focus, select:focus {
 }
 
 .status-upcoming {
-    background: #3498db;
+    background: #F56565;
     color: white;
 }
 
@@ -258,7 +417,7 @@ input:focus, select:focus {
 }
 
 .booking-count {
-    background: #3498db;
+    background: #9BB7D4;
     color: white;
     padding: 2px 8px;
     border-radius: 12px;
@@ -267,18 +426,20 @@ input:focus, select:focus {
 }
 
 .delete-btn {
-    background-color: #e74c3c;
+    background-color: #F56565;
     color: white;
     border: none;
     padding: 6px 12px;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 12px;
     margin-left: 10px;
+    transition: all 0.3s;
 }
 
 .delete-btn:hover {
-    background-color: #c0392b;
+    background-color: #E53E3E;
+    transform: translateY(-1px);
 }
 
 /* 座位選擇彈窗 */
@@ -294,14 +455,16 @@ input:focus, select:focus {
 }
 
 .modal-content {
-    background-color: white;
+    background: rgba(255, 255, 255, 0.95);
     margin: 5% auto;
     padding: 0;
-    border-radius: 10px;
+    border-radius: 15px;
     width: 90%;
     max-width: 400px;
     max-height: 80vh;
     overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(58, 78, 107, 0.2);
+    backdrop-filter: blur(10px);
 }
 
 .modal-header {
@@ -309,7 +472,7 @@ input:focus, select:focus {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #E4DFD8;
 }
 
 .close {
@@ -386,11 +549,13 @@ input:focus, select:focus {
 }
 
 .seat.available {
-    background-color: #bdbdbd;
+    background-color: #E4DFD8;
+    color: #3A4E6B;
 }
 
 .seat.selected {
-    background-color: #f2a33c;
+    background-color: #9BB7D4;
+    color: white;
 }
 
 .seat.occupied {
@@ -436,11 +601,11 @@ input:focus, select:focus {
 }
 
 .sw.av {
-    background: #bdbdbd;
+    background: #E4DFD8;
 }
 
 .sw.sel {
-    background: #f2a33c;
+    background: #9BB7D4;
 }
 
 .sw.res {
@@ -452,17 +617,17 @@ input:focus, select:focus {
     justify-content: flex-end;
     gap: 10px;
     padding: 20px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #E4DFD8;
 }
 
 .empty-message {
     text-align: center;
-    color: #7f8c8d;
+    color: #9BB7D4;
     font-style: italic;
     padding: 20px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border: 2px dashed #ddd;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    border: 2px dashed #E4DFD8;
 }
 
 .quick-actions {
@@ -474,22 +639,22 @@ input:focus, select:focus {
 
 .quick-btn {
     padding: 8px 16px;
-    border: none;
+    border: 1px solid #E4DFD8;
     border-radius: 20px;
-    background: #ecf0f1;
-    color: #2c3e50;
+    background: rgba(255, 255, 255, 0.8);
+    color: #3A4E6B;
     cursor: pointer;
     font-size: 13px;
     transition: all 0.3s;
 }
 
 .quick-btn:hover {
-    background: #3498db;
+    background: #3A4E6B;
     color: white;
 }
 
 .schedule-card:hover {
-    border-color: #3498db;
+    border-color: #3A4E6B;
 }
 
 @media (max-width: 600px) {
@@ -519,4 +684,13 @@ input:focus, select:focus {
         width: 35px;
         height: 35px;
     }
+}
+select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%233A4E6B" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 14px;
+    padding-right: 45px;
 }

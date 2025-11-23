@@ -9,12 +9,83 @@
 <body>
     <!-- 登入頁面 -->
     <div id="loginPage" class="login-page">
-        <div class="login-form">
-            <h2>登入系統</h2>
-            <input type="text" id="username" placeholder="學號">
-            <input type="password" id="password" placeholder="密碼">
-            <button id="loginBtn" class="btn-primary">登入</button>
-            <p class="login-hint">提示：任意學號和密碼即可登入</p>
+        <div class="auth-container">
+            <!-- 左側卡片 -->
+            <div class="auth-card left-card">
+                <!-- 登入表單 -->
+                <div id="loginFormCard" class="card-content">
+                    <h2>會員登入</h2>
+                    <div class="form-fields">
+                        <input type="text" id="username" placeholder="學號">
+                        <input type="password" id="password" placeholder="密碼">
+                        <button id="loginBtn" class="btn-primary">登入</button>
+                    </div>
+                    <p class="switch-text">還沒有帳戶？ <span id="toRegister" class="switch-link">立即註冊</span></p>
+                </div>
+                
+                <!-- 註冊說明 -->
+                <div id="registerInfoCard" class="card-content" style="display: none;">
+                    <h2>校園接駁車預約系統</h2>
+                    <div class="system-features">
+                        <div class="feature-item">
+                            <span class="checkmark">✓</span>
+                            <span>30 天預約期間</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="checkmark">✓</span>
+                            <span>4 條主要路線</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="checkmark">✓</span>
+                            <span>即時查詢可預約時段</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="checkmark">✓</span>
+                            <span>帳號登入後即可進行預約</span>
+                        </div>
+                    </div>
+                    <p class="switch-text">已有帳戶？ <span id="toLogin" class="switch-link">立即登入</span></p>
+                </div>
+            </div>
+            
+            <!-- 右側卡片 -->
+            <div class="auth-card right-card">
+                <!-- 系統說明 -->
+                <div id="systemInfoCard" class="card-content">
+                    <h2>校園接駁車預約系統</h2>
+                    <div class="system-features">
+                        <div class="feature-item">
+                            <span class="checkmark">✓</span>
+                            <span>30 天預約期間</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="checkmark">✓</span>
+                            <span>4 條主要路線</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="checkmark">✓</span>
+                            <span>即時查詢可預約時段</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="checkmark">✓</span>
+                            <span>帳號登入後即可進行預約</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 註冊表單 -->
+                <div id="registerFormCard" class="card-content" style="display: none;">
+                    <h2>會員註冊</h2>
+                    <div class="form-fields">
+                        <input type="text" id="regUsername" placeholder="學號">
+                        <input type="text" id="regName" placeholder="姓名">
+                        <input type="email" id="regEmail" placeholder="電子郵件">
+                        <input type="password" id="regPassword" placeholder="密碼">
+                        <input type="password" id="regConfirmPassword" placeholder="確認密碼">
+                        <button id="registerBtn" class="btn-primary">註冊</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -42,6 +113,10 @@
                     <div class="form-group">
                         <label for="date">日期：</label>
                         <input type="date" id="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">時間：</label>
+                        <input type="time" id="time">
                     </div>
                     <div class="form-group">
                         <label for="route">路線：</label>

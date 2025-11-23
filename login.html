@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校園接駁車預約系統 - 登入</title>
+    <link rel="stylesheet" href="login-style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>校園接駁車預約系統</h1>
+            <div class="features">
+                <div class="feature-item">✓ 30 天預約期間</div>
+                <div class="feature-item">✓ 4 條主要路線</div>
+                <div class="feature-item">✓ 即時查詢可預約時段</div>
+                <div class="feature-item">✓ 帳號登入後即可進行預約</div>
+            </div>
+        </div>
+
+        <div class="auth-container">
+            <div class="card-wrapper" id="cardWrapper">
+                <!-- 登入卡片 -->
+                <div class="card login-card" id="loginCard">
+                    <h2>登入</h2>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginStudentId">學號</label>
+                            <input type="text" id="loginStudentId" name="studentId" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">密碼</label>
+                            <input type="password" id="loginPassword" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">登入</button>
+                    </form>
+                    <div class="switch-text">
+                        還沒有帳號？ <a href="#" id="showRegister">立即註冊</a>
+                    </div>
+                </div>
+
+                <!-- 註冊卡片 -->
+                <div class="card register-card" id="registerCard">
+                    <h2>註冊</h2>
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="registerStudentId">學號</label>
+                            <input type="text" id="registerStudentId" name="studentId" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerName">姓名</label>
+                            <input type="text" id="registerName" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">電子郵件</label>
+                            <input type="email" id="registerEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">密碼</label>
+                            <input type="password" id="registerPassword" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">確認密碼</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">註冊</button>
+                    </form>
+                    <div class="switch-text">
+                        已有帳號？ <a href="#" id="showLogin">立即登入</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="login-script.js"></script>
+</body>
+</html>

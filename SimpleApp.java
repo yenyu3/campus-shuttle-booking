@@ -132,13 +132,27 @@ public class SimpleApp {
                 for (int i = 0; i < filtered.size(); i++) {
                     if (i > 0) json.append(",");
                     Schedule s = filtered.get(i);
+                    
+                    // 獲取已預約的座位
+                    StringBuilder occupiedSeats = new StringBuilder("[");
+                    boolean first = true;
+                    for (Booking b : bookings) {
+                        if (b.scheduleId == s.id) {
+                            if (!first) occupiedSeats.append(",");
+                            occupiedSeats.append("\"").append(b.seatNumber).append("\"");
+                            first = false;
+                        }
+                    }
+                    occupiedSeats.append("]");
+                    
                     json.append("{")
                         .append("\"id\":").append(s.id).append(",")
                         .append("\"date\":\"").append(s.date).append("\",")
                         .append("\"route\":\"").append(s.route).append("\",")
                         .append("\"departureTime\":\"").append(s.departureTime).append("\",")
                         .append("\"totalSeats\":").append(s.totalSeats).append(",")
-                        .append("\"availableSeats\":").append(s.availableSeats)
+                        .append("\"availableSeats\":").append(s.availableSeats).append(",")
+                        .append("\"occupiedSeats\":").append(occupiedSeats.toString())
                         .append("}");
                 }
                 json.append("]");
