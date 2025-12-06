@@ -57,7 +57,7 @@
 
 1. **克隆專案**
    ```bash
-   git clone https://github.com/your-username/campus-shuttle-booking.git
+   git clone https://github.com/yenyu3/campus-shuttle-booking.git
    cd campus-shuttle-booking
    ```
 
