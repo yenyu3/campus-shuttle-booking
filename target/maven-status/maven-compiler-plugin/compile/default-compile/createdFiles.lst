@@ -1,8 +1,0 @@
-com\campus\shuttle\entity\Booking.class
-com\campus\shuttle\ShuttleBookingApplication.class
-com\campus\shuttle\entity\Schedule.class
-com\campus\shuttle\controller\ShuttleController.class
-com\campus\shuttle\repository\BookingRepository.class
-com\campus\shuttle\service\ShuttleService.class
-com\campus\shuttle\config\DataInitializer.class
-com\campus\shuttle\repository\ScheduleRepository.class
