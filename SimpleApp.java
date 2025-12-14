@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 import com.sun.net.httpserver.*;
 
 enum ReservationStatus{
-    CONFIRMED, CANCELLED, MISSED_TRIP
+    RESERVED, CANCELLED, LATEWITHDRAW, NOSHOW
 }
 
 /*============================ Member 類別 ================================= */
@@ -48,7 +48,7 @@ class Member{
     public List<Reservation> getActiveReservations(){
         List<Reservation> active = new ArrayList<>();
         for (Reservation r : historyReservations){
-            if (r.getStatus() == ReservationStatus.CONFIRMED){
+            if (r.getStatus() == ReservationStatus.RESERVED){
                 active.add(r);
             }
         }
@@ -193,7 +193,7 @@ class Reservation{
         this.member = member;
         this.seat = seat;
         this.trip = trip;
-        this.status = ReservationStatus.CONFIRMED; // 新創的預約狀態預設為 CONFIRMED
+        this.status = ReservationStatus.RESERVED; // 新創的預約狀態預設為 CONFIRMED
 
         seat.setReservation(this); // 確保建立 Reservation 時，立即在對應的 Seat 設置參考
     }
@@ -362,7 +362,7 @@ class ReservationManager{
         if (!isCancellationTimely){
             member.handleViolationTimes();
             System.out.println("警告：逾時取消，違規次數增加為 " + member.getViolationTimes());
-            reservationToCancel.setStatus(ReservationStatus.MISSED_TRIP);
+            reservationToCancel.setStatus(ReservationStatus.LATEWITHDRAW);
         }else{
             reservationToCancel.setStatus(ReservationStatus.CANCELLED);
         }
