@@ -193,7 +193,7 @@ class Reservation{
         this.member = member;
         this.seat = seat;
         this.trip = trip;
-        this.status = ReservationStatus.RESERVED; // 新創的預約狀態預設為 CONFIRMED
+        this.status = ReservationStatus.RESERVED; // 新創的預約狀態預設為 RESERVED
 
         seat.setReservation(this); // 確保建立 Reservation 時，立即在對應的 Seat 設置參考
     }
