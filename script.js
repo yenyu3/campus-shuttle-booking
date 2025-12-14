@@ -335,7 +335,7 @@ async function confirmSeatBooking() {
         
         if (result.id) {
             closeSeatModal();
-            showSuccessMessage(`預約成功！}`);
+            showSuccessMessage(`預約成功！`);
             loadMyBookings();
             // 重新查詢班次以更新可用座位
             searchSchedule();
